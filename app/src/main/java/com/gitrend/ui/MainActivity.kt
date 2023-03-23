@@ -1,4 +1,4 @@
-package com.gitrend
+package com.gitrend.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
