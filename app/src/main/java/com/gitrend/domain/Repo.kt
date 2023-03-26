@@ -4,7 +4,7 @@ data class Repo(
     val name: String,
     val description: String,
     val url: String,
-    val stars: String,
-    val language: String,
+    val stars: Int,
+    val language: Language?,
     val owner: Owner
 )

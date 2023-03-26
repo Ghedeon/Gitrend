@@ -2,6 +2,7 @@ package com.gitrend.data
 
 import com.gitrend.data.remote.dto.OwnerDto
 import com.gitrend.data.remote.dto.RepoDto
+import com.gitrend.domain.Language
 import com.gitrend.domain.Owner
 import com.gitrend.domain.Repo
 
@@ -15,15 +16,15 @@ internal fun sampleRepo(
     name: String = "name",
     description: String = "description",
     url: String = "url",
-    stars: String = "stars",
-    language: String = "language",
+    stars: Int = 42,
+    language: String? = "language",
     owner: Owner = sampleOwner()
 ) = Repo(
-    name = "",
-    description = "",
-    url = "",
-    stars = "",
-    language = "",
+    name = name,
+    description = description,
+    url = url,
+    stars = stars,
+    language = language?.let { Language(language, null) },
     owner = owner
 )
 
@@ -31,8 +32,8 @@ internal fun sampleRepoDto(
     name: String = "name",
     description: String = "description",
     url: String = "url",
-    stars: String = "stars",
-    language: String = "language",
+    stars: Int = 42,
+    language: String? = "language",
     owner: OwnerDto = sampleOwnerDto()
 ) = RepoDto(
     name = name,

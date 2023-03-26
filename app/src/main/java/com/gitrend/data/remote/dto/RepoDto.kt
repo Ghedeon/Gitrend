@@ -11,10 +11,10 @@ internal data class RepoDto(
     val description: String,
     @SerialName("url")
     val url: String,
-    @SerialName("stars")
-    val stars: String,
+    @SerialName("stargazers_count")
+    val stars: Int,
     @SerialName("language")
-    val language: String,
+    val language: String?,
     @SerialName("owner")
     val owner: OwnerDto
 )

@@ -3,6 +3,7 @@
 
 package com.gitrend.data
 
+import com.charleskorn.kaml.Yaml
 import com.gitrend.BuildConfig
 import com.gitrend.data.remote.GithubApi
 import com.gitrend.domain.GithubRepository
@@ -36,7 +37,7 @@ internal abstract class DataModule {
 
         @Singleton
         @Provides
-        fun providesRetrofit(
+        fun provideRetrofit(
             okHttpClient: OkHttpClient,
             jsonConverter: Converter.Factory
         ): Retrofit =
@@ -55,9 +56,14 @@ internal abstract class DataModule {
 
         @Singleton
         @Provides
-        fun providesJsonConverter(): Converter.Factory {
+        fun provideJsonConverter(): Converter.Factory {
             val contentType = "application/json".toMediaType()
             return Json { ignoreUnknownKeys = true }.asConverterFactory(contentType)
         }
+
+        @Singleton
+        @Provides
+        fun provideYaml(): Yaml =
+            Yaml(configuration = Yaml.default.configuration.copy(strictMode = false))
     }
 }
