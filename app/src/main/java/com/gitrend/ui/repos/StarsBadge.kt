@@ -36,7 +36,7 @@ fun StarsBadge(modifier: Modifier = Modifier, stars: Int) {
 
 private val df = DecimalFormat("##.#")
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun StarsPreview() {
     StarsBadge(stars = 12345)

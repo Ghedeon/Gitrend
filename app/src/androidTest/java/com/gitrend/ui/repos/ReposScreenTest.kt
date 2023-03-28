@@ -24,10 +24,10 @@ internal class ReposScreenTest {
     private val viewModel: ReposViewModel = mock()
 
     @Test
-    fun GIVEN_remote_trending_repo_WHEN_load_repos_screen_THEN_show_repo() {
+    fun GIVEN_remote_repos_WHEN_load_repos_screen_THEN_show_repo() {
         // given
         val repo = sampleRepo(name = "Gitrend repo")
-        whenever(viewModel.uiState).thenReturn(ReposViewModel.UiState(listOf(repo)))
+        whenever(viewModel.uiState).thenReturn(ReposViewModel.UiState.Data(listOf(repo)))
 
         // when
         compose.setContent { ReposScreen(viewModel) }

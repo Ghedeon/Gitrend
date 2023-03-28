@@ -28,6 +28,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.gitrend.domain.Repo
+import com.gitrend.ui.error.ErrorScreen
+import com.gitrend.ui.repos.ReposViewModel.UiState
 import com.gitrend.ui.theme.lightGrey
 
 @Composable
@@ -36,11 +38,22 @@ fun ReposScreen(viewModel: ReposViewModel = hiltViewModel()) {
         modifier = Modifier.fillMaxSize(),
         topBar = { TopBar() }
     ) { paddings ->
-        LazyColumn(
-            modifier = Modifier.padding(paddings)
-        ) {
-            items(viewModel.uiState.repos) { repo -> RepoItem(repo) }
+        when (val uiState = viewModel.uiState) {
+            is UiState.Loading -> Loading()
+            is UiState.Data -> Content(Modifier.padding(paddings), uiState)
+            is UiState.Error -> ErrorScreen(onRetry = {
+                viewModel.loadRepos()
+            })
         }
+    }
+}
+
+@Composable
+private fun Content(modifier: Modifier, uiState: UiState.Data) {
+    LazyColumn(
+        modifier = modifier
+    ) {
+        items(uiState.repos) { repo -> RepoItem(repo) }
     }
 }
 
@@ -97,4 +110,9 @@ private fun RepoItem(repo: Repo) {
         color = lightGrey,
         thickness = 2.dp
     )
+}
+
+@Composable
+private fun Loading() {
+
 }

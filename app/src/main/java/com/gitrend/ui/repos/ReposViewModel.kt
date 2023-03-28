@@ -14,14 +14,28 @@ import javax.inject.Inject
 @HiltViewModel
 class ReposViewModel @Inject constructor(private val repository: GithubRepository) : ViewModel() {
 
-    var uiState: UiState by mutableStateOf(UiState())
+    var uiState: UiState by mutableStateOf(UiState.Loading)
         private set
 
     init {
+        loadRepos()
+    }
+
+    fun loadRepos() {
+        uiState = UiState.Loading
         viewModelScope.launch {
-            uiState = UiState(repos = repository.getRepos())
+            runCatching {
+                error("dfg")
+                uiState = UiState.Data(repos = repository.getRepos())
+            }.onFailure {
+                uiState = UiState.Error
+            }
         }
     }
 
-    data class UiState(val repos: List<Repo> = emptyList())
+    sealed class UiState {
+        object Loading : UiState()
+        object Error : UiState()
+        data class Data(val repos: List<Repo> = emptyList()) : UiState()
+    }
 }

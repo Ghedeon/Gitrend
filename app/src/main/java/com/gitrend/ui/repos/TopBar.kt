@@ -28,7 +28,7 @@ fun TopBar() {
                     modifier = Modifier.fillMaxWidth(),
                     text = stringResource(R.string.app_name),
                     textAlign = TextAlign.Center,
-                    fontWeight = FontWeight.Bold,
+                    fontWeight = FontWeight.SemiBold,
                     style = MaterialTheme.typography.headlineSmall
                 )
             },
