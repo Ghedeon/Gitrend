@@ -25,7 +25,6 @@ class ReposViewModel @Inject constructor(private val repository: GithubRepositor
         uiState = UiState.Loading
         viewModelScope.launch {
             runCatching {
-                error("dfg")
                 uiState = UiState.Data(repos = repository.getRepos())
             }.onFailure {
                 uiState = UiState.Error
