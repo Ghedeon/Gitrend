@@ -18,7 +18,7 @@ import androidx.core.graphics.toColorInt
 import com.gitrend.domain.Language
 
 @Composable
-fun LanguageBadge(modifier: Modifier = Modifier, language: Language) {
+internal fun LanguageBadge(modifier: Modifier = Modifier, language: Language) {
     Row(
         modifier = modifier.padding(2.dp),
         verticalAlignment = Alignment.CenterVertically

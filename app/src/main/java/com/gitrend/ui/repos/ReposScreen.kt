@@ -12,10 +12,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -28,28 +28,31 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.gitrend.domain.Repo
-import com.gitrend.ui.error.ErrorScreen
+import com.gitrend.ui.common.ErrorScreen
+import com.gitrend.ui.common.ListDivider
+import com.gitrend.ui.common.LoadingScreen
 import com.gitrend.ui.repos.ReposViewModel.UiState
-import com.gitrend.ui.theme.lightGrey
 
 @Composable
-fun ReposScreen(viewModel: ReposViewModel = hiltViewModel()) {
+internal fun ReposScreen(viewModel: ReposViewModel = hiltViewModel()) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = { TopBar() }
     ) { paddings ->
-        when (val uiState = viewModel.uiState) {
-            is UiState.Loading -> Loading()
-            is UiState.Data -> Content(Modifier.padding(paddings), uiState)
-            is UiState.Error -> ErrorScreen(onRetry = {
-                viewModel.loadRepos()
-            })
+        Surface(Modifier.padding(paddings)) {
+            when (val uiState = viewModel.uiState) {
+                is UiState.Loading -> LoadingScreen()
+                is UiState.Data -> Content(uiState = uiState)
+                is UiState.Error -> ErrorScreen(onRetry = {
+                    viewModel.loadRepos()
+                })
+            }
         }
     }
 }
 
 @Composable
-private fun Content(modifier: Modifier, uiState: UiState.Data) {
+private fun Content(modifier: Modifier = Modifier, uiState: UiState.Data) {
     LazyColumn(
         modifier = modifier
     ) {
@@ -105,14 +108,5 @@ private fun RepoItem(repo: Repo) {
             }
         }
     )
-    Divider(
-        modifier = Modifier.padding(start = 18.dp),
-        color = lightGrey,
-        thickness = 2.dp
-    )
-}
-
-@Composable
-private fun Loading() {
-
+    ListDivider()
 }

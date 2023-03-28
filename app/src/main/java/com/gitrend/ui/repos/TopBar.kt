@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.gitrend.R
 
 @Composable
-fun TopBar() {
+internal fun TopBar() {
     Column {
         TopAppBar(
             title = {

@@ -12,7 +12,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ReposViewModel @Inject constructor(private val repository: GithubRepository) : ViewModel() {
+internal class ReposViewModel @Inject constructor(private val repository: GithubRepository) :
+    ViewModel() {
 
     var uiState: UiState by mutableStateOf(UiState.Loading)
         private set

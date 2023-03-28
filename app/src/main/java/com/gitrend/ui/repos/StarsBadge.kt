@@ -16,7 +16,7 @@ import com.gitrend.ui.theme.starYellow
 import java.text.DecimalFormat
 
 @Composable
-fun StarsBadge(modifier: Modifier = Modifier, stars: Int) {
+internal fun StarsBadge(modifier: Modifier = Modifier, stars: Int) {
     val formatted = if (stars < 1000) "$stars" else "${df.format(stars.toFloat() / 1000)}k"
     Row(
         modifier = modifier.padding(2.dp),
